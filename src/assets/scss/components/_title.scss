@@ -1,0 +1,19 @@
+.big-title {
+  font-weight: bold;
+  font-size: 3rem;
+  color: $white;
+  text-shadow: 1px 1px 2px black;
+  font-family: "Playfair Display";
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.small-title {
+  @extend .big-title;
+  font-size: 1rem;
+}
+
+.middle-title {
+  @extend .big-title;
+  font-size: 2rem;
+}
