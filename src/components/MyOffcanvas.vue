@@ -1,7 +1,7 @@
 <template>
   <div class="container-offcanvas">
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-      :data-bs-target="`#staticBackdrop${props.index}`" :aria-controls="`staticBackdrop${props.index}`">Ver mas</button>
+    <v-btn class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" density="comfortable" rounded="lg" 
+      :data-bs-target="`#staticBackdrop${props.index}`" :aria-controls="`staticBackdrop${props.index}`">Ver mas</v-btn>
     <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" :id="`staticBackdrop${props.index}`"
       aria-labelledby="staticBackdropLabel">
       <v-btn density="comfortable" class="container-offcanvas__icon" icon="$close" variant="plain"
