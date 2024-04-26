@@ -4,7 +4,9 @@
     <div class="card-body text-start">
       <h5 class="card-title">{{ title }}</h5>
       <p>$ {{ price }}</p>
-      <p class="card-text">{{ description }}</p>
+      <p class="card-text">{{ description }} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque at,
+        molestias placeat sapiente praesentium aut possimus voluptatibus cupiditate quam eligendi quia. Dolor modi quis
+        veniam sapiente accusamus dolores quaerat odio.</p>
     </div>
     <div class="d-flex align-center card-shop">
       <div class="input-group  px-8">
@@ -96,6 +98,12 @@ const addShopCard = (() => {
 
   &-text {
     color: $green;
+    height: 50px;
+    width: 100%;
+    display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
   }
 
   &-shop {
