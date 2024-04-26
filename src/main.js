@@ -8,6 +8,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiAccount } from '@mdi/js'
 
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -37,6 +39,8 @@ createApp(App)
   .use(router)
   .use(vueFire)
   .use(vuetify)
+  .use(SvgIcon)
+  .use(mdiAccount)
   .mount("#app");
 
 import "bootstrap/dist/js/bootstrap.min";

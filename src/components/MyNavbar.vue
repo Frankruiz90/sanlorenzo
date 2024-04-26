@@ -18,6 +18,12 @@
           <router-link class="me-3 " to="/">Inicio</router-link>
           <router-link class="me-3" to="products">Productos</router-link>
           <router-link class="me-3" to="about">Nosotros</router-link>
+          <router-link class="me-3" to="shop">
+            <svg-icon v-if="amount <= 0" type="mdi" :path="mdiCartOutline"></svg-icon>
+            <v-badge v-if="amount > 0" color="success" :content="amount">
+              <svg-icon type="mdi" :path="mdiCartOutline"></svg-icon>
+            </v-badge>
+          </router-link>
         </div>
       </div>
     </nav>
@@ -25,7 +31,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiCartOutline } from '@mdi/js';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const amount = computed(() => store.getters.totalAmount);
+
 let sizeImg = ref(false);
 addEventListener('scroll', function () {
   window.scrollY > 1 ? sizeImg.value = true : sizeImg.value = false;

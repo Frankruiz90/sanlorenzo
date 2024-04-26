@@ -2,15 +2,15 @@
   <section class="products py-4">
     <h1 class="products-title title mb-5">Conoce nuestros productos.</h1>
     <section class="d-flex justify-content-center flex-wrap">
-      <h3 class="products-subtitle col-12" v-if="cakesProducts.length>0">Pasteles</h3>
+      <h3 class="products-subtitle col-12" v-if="cakesProducts.length > 0">Pasteles</h3>
       <div class="" v-for="(dataProduct, i) in cakesProducts" :key="i">
-        <MyCard :dataProduct="dataProduct" />
+        <MyCard :dataProduct="dataProduct" :index="'c' + i" />
       </div>
     </section>
     <section class="d-flex justify-content-center flex-wrap">
-      <h3 class="products-subtitle col-12" v-if="bakeryProducts.length>0">Panaderia</h3>
+      <h3 class="products-subtitle col-12" v-if="bakeryProducts.length > 0">Panaderia</h3>
       <div class="" v-for="(dataProduct, i) in bakeryProducts" :key="i">
-        <MyCard :dataProduct="dataProduct" />
+        <MyCard :dataProduct="dataProduct" :index="'b' + i" />
       </div>
     </section>
   </section>
@@ -33,8 +33,8 @@ onMounted(async () => {
   querySnapshot.forEach((doc) => {
     dataProducts.value.push({ id: doc.id, product: doc.data() });
   })
-  cakesProducts.value = dataProducts.value.filter((product) => product.product.productType =='cakes')
-  bakeryProducts.value = dataProducts.value.filter((product) => product.product.productType =='bakery')
+  cakesProducts.value = dataProducts.value.filter((product) => product.product.productType == 'cakes')
+  bakeryProducts.value = dataProducts.value.filter((product) => product.product.productType == 'bakery')
 })
 </script>
 
@@ -47,6 +47,7 @@ onMounted(async () => {
   &-title {
     @extend .big-title;
   }
+
   &-subtitle {
     @extend .middle-title;
   }

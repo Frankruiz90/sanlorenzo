@@ -5,7 +5,7 @@
       enctype="multipart/form-data">
       <div class=" col-6  p-4">
         <label for="" class="text-start">Categoria</label>
-        <select class="form-select form-control" v-model="category" placeholder="Seleccione una categoria">
+        <select class="form-select form-control" v-model="category" placeholder="Seleccione una categoria" required>
           <option value="carousel">Carrusel</option>
           <option value="gallery">Galeria</option>
           <option value="products">Producto</option>
@@ -23,7 +23,7 @@
 
       <div class=" col-6  p-4" v-if="category">
         <label for="" class="text-start">Nombre</label>
-        <input class="form-control" type="text" placeholder="Nombre producto" v-model="name">
+        <input class="form-control" type="text" placeholder="Nombre producto" v-model="name" required>
       </div>
       <div class=" col-6  p-4" v-if="category === 'products'">
         <label for="" class="text-start">Descripcion</label>
@@ -113,7 +113,8 @@ const imageSelected = ((e) => {
 const updateimg = (async () => {
   try {
     store.commit('setDialogTrue', true)
-    const storageRef = refFire(myStorage, `/${category.value}/${img.value.name}`);
+    const storageRef = refFire(myStorage, `/${category.value}/${name.value.toLowerCase()
+        .replace(" ", "_")}`);
     await uploadbytes(storageRef, img.value).then(
       (snapshot) => {
         console.log('uploaded', snapshot);
@@ -130,7 +131,8 @@ const updateimg = (async () => {
 
 const recoverurlImg = (async () => {
   try {
-    await getUrl(refFire(myStorage, `/${category.value}/${img.value.name}`)).then(
+    await getUrl(refFire(myStorage, `/${category.value}/${name.value.toLowerCase()
+        .replace(" ", "_")}`)).then(
       (doloaw_url) => urlImg.value = doloaw_url
     )
   } catch (error) {

@@ -1,6 +1,6 @@
 <template>
   <section class="galery " v-if="viewGallery">
-    <div class=" d-flex flex-lg-wrap justify-content-between">
+    <div class=" d-flex flex-column flex-md-row flex-wrap justify-content-between ">
       <div class="galery-container" v-for="(image, i) in props.images" :key="i">
         <img :src="image.url" class="galery-container__img img-fluid" :alt="image.id">
       </div>
@@ -41,6 +41,9 @@ onMounted(() => {
   &-container {
     overflow: hidden;
     width: 33%;
+    @media  (max-width: 920px) {
+      width: 100%;
+}
 
     &__img {
       width: 100%;
