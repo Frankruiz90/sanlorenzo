@@ -101,9 +101,9 @@ const addShopCard = (() => {
     height: 50px;
     width: 100%;
     display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &-shop {

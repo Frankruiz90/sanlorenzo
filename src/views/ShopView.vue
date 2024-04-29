@@ -1,8 +1,8 @@
 <template>
   <div class="pt-5 shop">
-    <h1 class="big-title">Mi Pedido</h1>
-    <div v-if="amount>0">
-      <v-table theme="dark"  >
+    <h1 class="big-title" v-if="!viewForm">Mi Pedido</h1>
+    <div v-if="amount > 0 && !viewForm">
+      <v-table theme="dark">
         <thead>
           <tr>
             <th class="text-left">
@@ -18,7 +18,7 @@
               Total Producto
             </th>
           </tr>
-        
+
         </thead>
         <tbody>
           <tr v-for="(item, i ) in cardShop" :key="i">
@@ -26,12 +26,12 @@
             <td class="text-left">
               <div class="d-flex ">
                 <div class="input-group shop-amount">
-                  <v-btn class="btn btn-decrease" size="x-small" type="button" id="button-addon1" 
-                    :disabled="item.amount <= 0" @click="newAmount(i,'rest')"><v-icon icon="$minus" size="small">
+                  <v-btn class="btn btn-decrease" size="x-small" type="button" id="button-addon1"
+                    :disabled="item.amount <= 0" @click="newAmount(i, 'rest')"><v-icon icon="$minus" size="small">
                     </v-icon></v-btn>
                   <input type="number" class="form-control input-number" placeholder="Cantidad" v-model="item.amount"
-                    aria-label="Example text with button addon" aria-describedby="button-addon1"  @input="newTotal(i)">
-                  <v-btn class="btn " size="x-small" type="button" id="button-addon2" @click="newAmount(i,'add')" >
+                    aria-label="Example text with button addon" aria-describedby="button-addon1" @input="newTotal(i)">
+                  <v-btn class="btn " size="x-small" type="button" id="button-addon2" @click="newAmount(i, 'add')">
                     <v-icon icon="$plus" size="small"></v-icon>
                   </v-btn>
                 </div>
@@ -42,26 +42,50 @@
           </tr>
         </tbody>
         <tbody class="">
-          <tr >
+          <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="text-left">
-              <strong >
+              <strong>
                 Total: ${{ totalPrice }}
               </strong>
             </td>
-  
+
           </tr>
-  
+
         </tbody>
       </v-table>
-      <div class="my-5 d-flex justify-content-evenly " >
+      <div class="my-5 d-flex justify-content-evenly ">
         <v-btn>Cancelar</v-btn>
-        <v-btn>Comprar</v-btn>
-  
+        <v-btn @click="viewForm = !viewForm">Comprar</v-btn>
+
       </div>
-      
+
+    </div>
+    <div v-if="viewForm" class="card m-5 p-4">
+      <v-row>
+        <div class="col-7 border-e-1 p-4">
+          <FormComponent />
+
+        </div>
+        <div style="width: 1px; background-color: brown; "></div>
+        <div class="col-4 p-4">
+          <h1 class="big-title">Mi Pedido</h1>
+          <div v-for="(item, i ) in cardShop" :key="i" class="mt-4">
+            <p><strong>Producto:</strong>  {{ item.title }} </p>
+            <p><strong>Cantidad:</strong>  {{ item.amount }} </p>
+            <v-divider></v-divider>
+          </div>
+          <div class="text-end">
+            <strong >
+              Total: ${{ totalPrice }}
+            </strong>
+
+          </div>
+        </div>
+
+      </v-row>
     </div>
     <h2 class="medium-title" v-if="!amount">No hay productos</h2>
   </div>
@@ -69,25 +93,27 @@
 
 <script setup>
 
-import {  onMounted,  computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import FormComponent from '../components/FormComponent.vue'
 
 const store = useStore();
 const cardShop = computed(() => store.state.shopCar);
 const amount = computed(() => store.getters.totalAmount);
+const viewForm = ref(false);
 
 onMounted(() => {
   store.commit('setDialogTrue', false);
 })
 const newTotal = (index) => {
   const product = cardShop.value[index];
-  product.total = product.price * product.amount;  
+  product.total = product.price * product.amount;
 }
 
-const newAmount = (i,operation)=> {
+const newAmount = (i, operation) => {
   console.log('newAmount');
   const product = cardShop.value[i];
-  operation == 'add'? product.amount ++ : product.amount --;
+  operation == 'add' ? product.amount++ : product.amount--;
   newTotal(i);
 }
 
@@ -102,9 +128,11 @@ const totalPrice = computed(() => store.getters.totalPrice)
   .big-title {
     color: $coffe;
   }
-  &-amount{
+
+  &-amount {
     width: 120px;
   }
+
   .btn {
     background-color: $coffe ;
     border: none;
